@@ -1,10 +1,12 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import locationReducer from '../slices/LocationSlice'
 import categoriesReducer from '../slices/CategoriesSlice'
+import productsReducer from '../slices/ProductsSlice'
 
 const reducer = combineReducers({
     location: locationReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
+    products: productsReducer
 })
 
 export const store = configureStore({

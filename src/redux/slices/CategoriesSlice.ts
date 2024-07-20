@@ -1,14 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Category} from "../types/Category";
+import {Category} from "../../types/Category";
 
 interface CategoriesSlice {
     categories: Category[],
-    isLoading: boolean
+    isLoading: boolean,
+    selectedCategory: Category | null
 }
 
 const initialState: CategoriesSlice = {
     categories: [],
-    isLoading: false
+    isLoading: false,
+    selectedCategory: null
 }
 
 const categoriesSlice = createSlice({
@@ -20,9 +22,12 @@ const categoriesSlice = createSlice({
         },
         setIsCategoriesLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
+        },
+        setSelectedCategory: (state, action: PayloadAction<number>) => {
+            state.selectedCategory = state.categories[action.payload]
         }
     },
 })
 
-export const { setCategories, setIsCategoriesLoading } = categoriesSlice.actions;
+export const { setCategories, setIsCategoriesLoading, setSelectedCategory } = categoriesSlice.actions;
 export default categoriesSlice.reducer
