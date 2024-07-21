@@ -8,16 +8,20 @@
   min-height: 100vh;
   background-color: $background-color;
   margin-top: -1rem;
+  flex-wrap: wrap;
+
 
   .home-page-container {
     display: flex;
     flex-direction: column;
-    width: 60rem;
+    max-width: 60rem;
+    flex-wrap: wrap;
   }
 
   .cover-image {
     width: 100%;
     height: 28rem;
+    object-fit: cover;
   }
 
   .location-logo {
@@ -68,6 +72,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
+    flex-wrap: wrap;
   }
 
   .button {
@@ -89,6 +94,8 @@
     justify-content: space-between;
     margin-top: 1rem;
     padding-left: 0.5rem;
+    width: 100%;
+    flex-wrap: wrap;
   }
 
   .menu-category {
@@ -109,17 +116,55 @@
     width: 100%;
     font-weight: bold;
   }
-}
 
-#loading-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
+  .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-  .loading {
-    margin-bottom: 1rem;
-    color: red;
+  .divider {
+    width: 100%;
+    box-shadow: 0.8px 1.3px 2.4px 0.1px rgba(0, 0, 0, 0.15);
+    margin: 2rem 0;
+  }
+
+  .link {
+    text-decoration: none;
+  }
+
+  .report-button {
+    cursor: pointer;
+    margin: 1rem 0;
+    text-align: center;
+  }
+
+  .report-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 785px) {
+    .button {
+      padding: 0;
+    }
+  }
+
+    @media (max-width: 500px) {
+    .buttons-container {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .menu-categories-container {
+      flex-direction: column;
+      gap: 2rem;
+      padding: 0;
+    }
+
+    .menu-container {
+      text-align: center;
+    }
   }
 }

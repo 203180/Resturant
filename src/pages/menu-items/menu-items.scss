@@ -8,12 +8,14 @@
   min-height: 100vh;
   background-color: $background-color;
   margin-top: -1rem;
+  flex-wrap: wrap;
 
   .menu-item-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 60rem;
+    max-width: 60rem;
+    flex-wrap: wrap;
   }
 
   .header {
@@ -23,6 +25,7 @@
     justify-content: space-between;
     padding: 1rem;
     box-shadow: 2.6px 4.2px 12.8px 2.3px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
   }
 
   .arrow-left {
@@ -98,5 +101,15 @@
   .down {
     rotate: 180deg;
     transition: all 1s ease;
+  }
+
+  .description {
+    width: 90%;
+  }
+
+  @media (min-width: 950px) {
+    .menu-item-container {
+      width: 60rem;
+    }
   }
 }

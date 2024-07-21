@@ -1,8 +1,6 @@
-import {Box, CircularProgress, Typography} from "@mui/material";
+import {Box, Divider, Typography} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../redux/store/store";
-import Default_Cover from "../../images/default_location_cover.jpg"
-import Default_Logo from "../../images/default_location_logo.jpg"
 import Call_Icon from "../../styles/icons/call.svg"
 import Find_Icon from "../../styles/icons/find.svg"
 import Share_Icon from "../../styles/icons/share.svg"
@@ -16,9 +14,9 @@ import {setIsLocationLoading, setLocations} from "../../redux/slices/LocationSli
 import {fetchCategories} from "../../repositories/categoriesRepository";
 import {Category} from "../../types/Category";
 import {Link} from "react-router-dom";
-import {selectCategoriesData} from "../../redux/selectors/categoriesSelectors";
 import {Loader} from "../../shared/components/loader/Loader";
 import Default from '../../images/no_image_available.png'
+import Report_Icon from '../../styles/icons/report.svg'
 
 export const HomePage = () => {
 
@@ -31,6 +29,55 @@ export const HomePage = () => {
     const areCategoriesLoading = useSelector((state: RootState) => state.categories.isLoading);
 
     const categories: Category[] = useSelector((state: RootState) => state.categories.categories);
+
+    const handleMessageClick = () => {
+        const name = location.name.split(' ').join('_');
+        window.location.href = `mailto:${name}@qpick.io?subject=Reservation&body=Hi ${location.name}, I would like to make a reservation.`;
+    }
+
+    const handleShareClick = () => {
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => {
+                alert('Link copied to clipboard!');
+            })
+    }
+
+    const handleCallClick = () => {
+        // here i would put the phone number of the location but the mock data did not have a phone number in it so i put random numbers
+        window.location.href = `tel:12345678`;
+    }
+
+    const handleFindClick = () => {
+        // same here, so i put the coordinates of random location in Skopje
+        const latitude = 41.9991;
+        const longitude = 21.4254;
+        const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        window.open(googleMapsUrl, '_blank');
+    }
+
+    const buttons = [
+        {
+            imageSrc: Call_Icon,
+            text: 'Call Restaurant',
+            clickHandler: handleCallClick
+        },
+        {
+            imageSrc: Find_Icon,
+            text: 'Find Restaurant',
+            clickHandler: handleFindClick
+        },
+        {
+            imageSrc: Share_Icon,
+            text: 'Share',
+            clickHandler: handleShareClick
+        },
+        {
+            imageSrc: Message_Icon,
+            text: 'Message',
+            clickHandler: handleMessageClick
+        }
+    ]
+
 
     useEffect(() => {
         if (location.name === '') {
@@ -71,22 +118,12 @@ export const HomePage = () => {
                         <Typography className='text medium'>{location.description}</Typography>
                     </Box>
                     <Box className='container buttons-container'>
-                        <Box className='button'>
-                            <img src={Call_Icon} alt='call-icon' className='icon'/>
-                            <Typography variant='body1' className='text'>Call Restaurant</Typography>
-                        </Box>
-                        <Box className='button'>
-                            <img src={Find_Icon} alt='call-icon' className='icon'/>
-                            <Typography className='text'>Find Restaurant</Typography>
-                        </Box>
-                        <Box className='button'>
-                            <img src={Share_Icon} alt='call-icon' className='icon'/>
-                            <Typography className='text'>Share</Typography>
-                        </Box>
-                        <Box className='button'>
-                            <img src={Message_Icon} alt='call-icon' className='icon'/>
-                            <Typography className='text'>Message</Typography>
-                        </Box>
+                        {buttons.map((button, index) => (
+                            <Box className='button' key={index} onClick={() => button.clickHandler()}>
+                                <img src={button.imageSrc} alt={button.text} className='icon'/>
+                                <Typography variant='body1' className='text'>{button.text}</Typography>
+                            </Box>
+                        ))}
                     </Box>
                     <Box className='menu-container'>
                         <Typography fontWeight='bold' variant='h5'>Menu</Typography>
@@ -100,6 +137,16 @@ export const HomePage = () => {
                                 </Box>
                             ))}
                         </Box>
+                    </Box>
+                    <Box className='footer'>
+                        <Divider className='divider'/>
+                        <Typography variant='body2' className='text'>You don't like what you see?</Typography>
+                        <Link className='link' to="mailto:info@qpick.io?subject=Report Restaurant&body=Hi QX menu, I want to report this restaurant.">
+                            <Box className='report-button'>
+                                <img src={Report_Icon} alt='report' className='report-icon'/>
+                                <Typography className='text'>REPORT</Typography>
+                            </Box>
+                        </Link>
                     </Box>
                 </Box>
             }
