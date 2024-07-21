@@ -59,7 +59,7 @@ export const MenuItems = () => {
                                      className={!product.is_photo_expanded ? 'arrow-interactive' : 'arrow-interactive down'}/>
                                 <Box className='title'>
                                     <Typography fontWeight='bold'>{product.name}</Typography>
-                                    <Typography fontWeight='bold'>{product.price} $</Typography>
+                                    <Typography fontWeight='bold'>{product.price} €</Typography>
                                 </Box>
                                 <Typography variant='body2' className='description'>{product.description}</Typography>
                             </Box>
